@@ -53,7 +53,6 @@
                 </div>
             </div>
         </nav>
-        <!--Projetos-->
         <div class="container" id="featured-container">
             <div class="col-12">
                 <h2 class="title primary-color">Roupas em Destaque</h2>
