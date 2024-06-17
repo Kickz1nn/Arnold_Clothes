@@ -16,4 +16,3 @@
         header("Location: ./del.php?mensagem=Selecione um produto para excluir");
         exit();
     }
-?>
