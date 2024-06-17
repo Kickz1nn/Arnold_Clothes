@@ -61,7 +61,7 @@
                 <div class="col-12" id="featured-images">                    
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-primary border" onclick="window.location='add.php'" value="Adicionar">Adicionar</button>
-                        <button class="btn btn-primary border" onclick="window.location='del.php'" value="Excluir">Excluir</button>
+                        <button class="btn btn-primary border" onclick="window.location='excluir.php'" value="Excluir">Excluir</button>
                         <button class="btn btn-primary border" onclick="window.location='edt.php'" value="Editar">Editar</button>
                         <button class="btn btn-primary border" onclick="window.location='con.php'" value="Consultar">Consultar</button>
                     </div>
