@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ptbr">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -17,13 +17,12 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-    
         <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon" />
         <title>Arnold Cloths</title>
     </head>
     <body>
         <!--NavBar-->
-        <nav class="navbar navbar-expand-lg fixed-top bg-primary-color" id="navbar">
+        <nav class="navbar navbar-expand-lg fixed-top bg-primary-color position-relative" id="navbar">
             <div class="container py-3">
                 <a href="index.php" class="navbar-brand primary-color">
                     <img src="IMG/favicon.png" alt="iHome">
@@ -45,7 +44,7 @@
                             <a href="index.php" class="nav-link primary-color">Catálogo</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link primary-color active">
+                            <a href="admin.php" class="nav-link active primary-color">
                                 <i class="bi bi-person" id="login-icon"></i>
                                 <span id="login-txt">Admin</span>
                             </a>
@@ -54,19 +53,56 @@
                 </div>
             </div>
         </nav>
-        <div class="container" id="featured-container">
-            <div class="col-12">
-                <h2 class="title primary-color">Área Administrador</h2>
-                <p class="subtitle secondary-color">Adicione, exclua ou edite roupa<abrr title="Carlos, o Fassa I">s</abbr></p>
-                <div class="col-12" id="featured-images">                    
-                    <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary border" onclick="window.location='add.php'" value="Adicionar">Adicionar</button>
-                        <button class="btn btn-primary border" onclick="window.location='excluir.php'" value="Excluir">Excluir</button>
-                        <button class="btn btn-primary border" onclick="window.location='edt.php'" value="Editar">Editar</button>
-                        <button class="btn btn-primary border" onclick="window.location='con.php'" value="Consultar">Consultar</button>
+        <?php
+            if(isset($_GET["mensagem"]) && !empty($_GET["mensagem"])) {
+                ?>
+                    <div class="alert alert-warning">
+                        <?php echo $_GET["mensagem"]; ?>
                     </div>
-                </div>
-            </div>
-        </div>
+                <?php
+            }
+?>
+        <table class="table table-hover mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Imagem</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Em Estoque</th>
+                    <th scope="col">Preço Unitário</th>
+                    <th scope="col">Tamanho</th>
+                    <th scope="col">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    include("conection.php");
+
+                    $query = "SELECT id, descricao, quantidade, precou, tamanho, img from roupas";
+                    $dados = mysqli_query($conexao, $query);
+
+                    
+
+                    if($dados) {
+                        while($linha = mysqli_fetch_assoc($dados)) {
+                            ?>
+                                <tr>
+                                    <th scope="row"><?php echo $linha["id"]?></th>
+                                    <td><?php echo $linha["img"]?></td>
+                                    <td><?php echo $linha["descricao"]?></td>
+                                    <td><?php echo $linha["quantidade"]?></td>
+                                    <td><?php echo "R$ " . number_format($linha["precou"],2,",","."); ?></td>
+                                    <td><?php echo $linha["tamanho"]?></td>
+                                    <td>
+                                        <a class="btn btn-danger" href="./excluir.php?id=<?php echo $linha["id"]; ?>">Excluir</a>
+                                    </td>
+                                </tr>
+                            <?php
+                        }
+                    }
+                ?>
+            </tbody>
+        </table>
     </body>
+    <script src="JS/script.js"></script>
 </html>

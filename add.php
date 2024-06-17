@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ptbr">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,15 +17,15 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-        <link rel="shortcut icon" href="IMG/flavicon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon" />
         <title>Arnold Cloths</title>
     </head>
     <body>
         <!--NavBar-->
         <nav class="navbar navbar-expand-lg fixed-top bg-primary-color position-relative" id="navbar">
             <div class="container py-3">
-                <a href="index.html" class="navbar-brand primary-color">
-                    <img src="IMG/flavicon.png" alt="iHome">
+                <a href="index.php" class="navbar-brand primary-color">
+                    <img src="IMG/favicon.png" alt="iHome">
                     <span>Arnold Clothes</span>
                 </a>
                 <button class="navbar-toggler" 
@@ -41,7 +41,7 @@
                 <div class="collapse navbar-collapse" id="navbar-items">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="#" class="nav-link primary-color">Catálogo</a>
+                            <a href="index.php" class="nav-link primary-color">Catálogo</a>
                         </li>
                         <li class="nav-item">
                             <a href="admin.php" class="nav-link active primary-color">
@@ -54,33 +54,29 @@
             </div>
         </nav>
         <div class="m-4">
-            <form method="post" action="addc.php" enctype="multipart/form-data">
+            <form method="post" action="./add.php" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="codigo">Id</label>
-                        <input type="number" class="form-control" name="codigo" id="codigo" placeholder="1">
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="tamanho">Tamanho</label>
-                        <input type="number" class="form-control" name="tamanho" id="tamanho" placeholder="12">
+                        <input type="number" class="form-control" name="tamanho" id="tamanho" placeholder="12" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="descricao">Descrição</label>
-                    <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Camisa azul com detalhes rosas" maxlength="50">
+                    <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Camisa azul com detalhes rosas" maxlength="50" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="quantidade">Em Estoque</label>
-                        <input type="number" class="form-control" name="quantidade" id="quantidade">
+                        <input type="number" class="form-control" name="quantidade" id="quantidade" required>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="precou">Valor</label>
-                        <input type="number" class="form-control" name="precou" id="precou" step="0.01">
+                        <label for="preco">Valor</label>
+                        <input type="number" class="form-control" name="preco" id="preco" step="0.01" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="imagem">Imagem</label>
-                        <input type="file" class="form-control" name="imagem" id="imagem">
+                        <input type="file" class="form-control" accept="image/*" name="imagem" id="imagem">
                     </div>
                 </div>
                 <div class="form-group">
@@ -93,6 +89,75 @@
                 </div>
                 <button type="submit" class="btn btn-secondary" id="enviar">Adicionar</button>
             </form>
+        </div>
+        <div>
+            <?php
+                include("conection.php");
+                if(isset($_POST) && !empty($_POST)){
+
+                    $descricao = $_POST["descricao"];
+                    $valor = $_POST["preco"];
+                    $quantidade = $_POST["quantidade"];
+                    $tamanho = $_POST["tamanho"];
+                    $imgs = "";
+                    $imagens = "IMG/";
+                    $arquivo = $imagens . basename($_FILES["imagem"]["name"]);
+                    $uploadOk = 1;
+                    $tipoarquivo = strtolower(pathinfo($arquivo,PATHINFO_EXTENSION));
+                    $foto = "";
+                    $ativo = $_POST["confirmar"] == "on" ? true : false;
+                                    
+                    if(isset($_POST["submit"])) {
+                        $check = getimagesize($_FILES["imagem"]["tmp_name"]);
+                        if($check !== false) {
+                            echo "File is an image - " . $check["mime"] . ".";
+                        } else {
+                            echo "File is not an image.";
+                            $uploadOk = 0;
+                        }
+                    }
+
+                    // Check file size
+                    if ($_FILES["imagem"]["size"] > 6000000) {
+                        $uploadOk = 0;
+                    }
+                    
+                    // Allow certain file formats
+                    if($tipoarquivo != "jpg" && $tipoarquivo != "png" && $tipoarquivo != "jpeg") {
+                        $uploadOk = 0;
+                    }
+                    
+                    // Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
+                        // if everything is ok, try to upload file
+                    } else {
+                        if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $arquivo)) {
+                            $foto = basename($arquivo);
+                        } else {
+                            echo "Tivemos algum erro ao fazer o upload de sua imagem";
+                        }
+                    }
+
+                    // criando a linha de INSERT
+                    $sqlinsert = "insert into roupas (id, descricao, quantidade, precou, tamanho, img) values ('', '$descricao', '$quantidade', '$valor', '$tamanho', '$foto')";
+
+                    // executando instrução SQL
+                    $resultado = @mysqli_query($conexao, $sqlinsert);
+                    if (!$resultado) {
+                        ?>
+                            <div class="alert alert-danger">
+                                <p>Erro no Cadastro</p>
+                            </div>
+                        <?php
+                    } else {
+                        ?>
+                            <div class="alert alert-success">
+                                <p>Cadastro com Sucesso</p>
+                            </div>
+                        <?php
+                    }
+                }
+            ?>
         </div>
     </body>
     <script src="JS/script.js"></script>

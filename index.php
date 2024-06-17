@@ -18,15 +18,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
     
-        <link rel="shortcut icon" href="IMG/flavicon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon" />
         <title>Arnold Cloths</title>
     </head>
     <body>
         <!--NavBar-->
         <nav class="navbar navbar-expand-lg fixed-top bg-primary-color" id="navbar">
             <div class="container py-3">
-                <a href="index.html" class="navbar-brand primary-color">
-                    <img src="IMG/flavicon.png" alt="iHome">
+                <a href="index.php" class="navbar-brand primary-color">
+                    <img src="IMG/favicon.png" alt="iHome">
                     <span>Arnold Clothes</span>
                 </a>
                 <button class="navbar-toggler" 
@@ -53,7 +53,6 @@
                 </div>
             </div>
         </nav>
-        <!--Projetos-->
         <div class="container" id="featured-container">
             <div class="col-12">
                 <h2 class="title primary-color">Roupas em Destaque</h2>
@@ -75,7 +74,7 @@
 
                         while($dados = mysqli_fetch_array($query)) {
 
-                            if($cont == 4) {
+                            if($cont == 3) {
                                 escreverow();
                             }
 
@@ -83,6 +82,7 @@
                                 $descricao = $dados['descricao'];
                                 echo "\t\t\t\t\t\t<div class=\"col-12 col-md-4 mr-4 card\">\n";
                                 echo "\t\t\t\t\t\t\t<img src=\"IMG/SemImagem.png\" class=\"img-fluid\">\n";
+                                echo "\t\t\t\t\t\t\t<p class=\"card-text\">$descricao</p>";
                                 echo "\t\t\t\t\t\t</div>\n";
                             } 
                             
