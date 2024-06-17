@@ -17,7 +17,9 @@
 .primary-color {
     color: #050505;
 }
-
+#descricao{
+    width: 50%;
+}
 .secondary-color {
     color: #7a7a7a;
 }
