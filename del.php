@@ -79,12 +79,10 @@
                     include("conection.php");
 
                     $query = "SELECT id, descricao, quantidade, precou, tamanho, img from roupas";
-                    $dados = mysqli_query($conexao, $query);
-
-                    
+                    $dados = mysqli_query($conexao, $query);          
 
                     if($dados) {
-                        while($linha = mysqli_fetch_assoc($dados)) {
+                        while($linha) {
                             ?>
                                 <tr>
                                     <th scope="row"><?php echo $linha["id"]?></th>
@@ -94,9 +92,23 @@
                                     <td><?php echo "R$ " . number_format($linha["precou"],2,",","."); ?></td>
                                     <td><?php echo $linha["tamanho"]?></td>
                                     <td>
-                                        <a class="btn btn-danger" href="./excluir.php?id=<?php echo $linha["id"]; ?>">Excluir</a>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Excluir</>
                                     </td>
                                 </tr>
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Você deseja mesmo excluir?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-danger" href="excluir.php?id=<?php echo $linha["id"]; ?>">Excluir</a>
+                                                <a class="btn btn-warning" data-bs-dismiss="modal">Não Excluir</a>
+                                            </div>
+                                        </div>
+            </div>
+        </div>
                             <?php
                         }
                     }
