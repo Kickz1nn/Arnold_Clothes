@@ -24,8 +24,8 @@
         <!--NavBar-->
         <nav class="navbar navbar-expand-lg fixed-top bg-primary-color position-relative" id="navbar">
             <div class="container py-3">
-                <a href="index.html" class="navbar-brand primary-color">
-                    <img src="IMG/flavicon.png" alt="iHome">
+                <a href="index.php" class="navbar-brand primary-color">
+                    <img src="IMG/favicon.png" alt="iHome">
                     <span>Arnold Clothes</span>
                 </a>
                 <button class="navbar-toggler" 
@@ -41,7 +41,7 @@
                 <div class="collapse navbar-collapse" id="navbar-items">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="#" class="nav-link primary-color">Catálogo</a>
+                            <a href="index.php" class="nav-link primary-color">Catálogo</a>
                         </li>
                         <li class="nav-item">
                             <a href="admin.php" class="nav-link active primary-color">
@@ -56,9 +56,9 @@
         <div class="m-4">
             <form method="post" action="edt.php" enctype="multipart/form-data">
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="codigo">id</label>
-                        <input type="number" class="form-control" name="codigo" id="codigo" placeholder="1">
+                    <div class="form-group col-md-6" style="margin-bottom: 10px;">
+                        <label for="id">id</label>
+                        <input type="number" class="form-control" name="id" id="id" required="required">
                     </div>
                 <button type="submit" class="btn btn-secondary" id="enviar">ir alterar</button>
             </form>
