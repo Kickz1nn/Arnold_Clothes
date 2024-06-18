@@ -218,6 +218,14 @@
     text-align: justify;
 }
 
+.preco {
+    font-size: 18pt;
+}
+
+.desc {
+    font-size: 16pt;
+}
+
 @media(min-width: 768px) {
     #content h5 {
         font-size: 2.25em;

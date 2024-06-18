@@ -82,7 +82,7 @@
                     $dados = mysqli_query($conexao, $query);          
 
                     if($dados) {
-                        while($linha) {
+                        while($linha = mysqli_fetch_assoc($dados)) {
                             ?>
                                 <tr>
                                     <th scope="row"><?php echo $linha["id"]?></th>
@@ -92,28 +92,29 @@
                                     <td><?php echo "R$ " . number_format($linha["precou"],2,",","."); ?></td>
                                     <td><?php echo $linha["tamanho"]?></td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Excluir</>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="<?php echo $linha["id"]; ?>">Excluir</>
                                     </td>
-                                </tr>
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Você deseja mesmo excluir?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a class="btn btn-danger" href="excluir.php?id=<?php echo $linha["id"]; ?>">Excluir</a>
-                                                <a class="btn btn-warning" data-bs-dismiss="modal">Não Excluir</a>
-                                            </div>
-                                        </div>
-            </div>
-        </div>
+                                </tr>                               
                             <?php
                         }
                     }
                 ?>
             </tbody>
         </table>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Você deseja mesmo excluir?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <a class="btn btn-danger btn-excluir" href="">Excluir</a>
+                        <a class="btn btn-warning" data-bs-dismiss="modal">Não Excluir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
+    <script src="JS/del.js"></script>
 </html>

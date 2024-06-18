@@ -53,7 +53,7 @@
                 </div>
             </div>
         </nav>
-        <div class="m-4">
+        <div class="ms-5 mt-3">
             <form method="post" action="./add.php" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -61,26 +61,26 @@
                         <input type="number" class="form-control" name="tamanho" id="tamanho" placeholder="12" required>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <label for="descricao">Descrição</label>
                     <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Camisa azul com detalhes rosas" maxlength="50" required>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6 mt-3">
                         <label for="quantidade">Em Estoque</label>
                         <input type="number" class="form-control" name="quantidade" id="quantidade" required>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-2 mt-2">
                         <label for="preco">Valor</label>
                         <input type="number" class="form-control" name="preco" id="preco" step="0.01" required>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 mt-3">
                         <label for="imagem">Imagem</label>
                         <input type="file" class="form-control" accept="image/*" name="imagem" id="imagem">
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-check">
+                <div class="form-group mb-3">
+                    <div class="form-check mt-3">
                         <input class="form-check-input" type="checkbox" name="confirmar" id="confirmar">
                         <label class="form-check-label" for="confirmar">
                             Confirmo a adição
@@ -99,13 +99,11 @@
                     $valor = $_POST["preco"];
                     $quantidade = $_POST["quantidade"];
                     $tamanho = $_POST["tamanho"];
-                    $imgs = "";
                     $imagens = "IMG/";
                     $arquivo = $imagens . basename($_FILES["imagem"]["name"]);
                     $uploadOk = 1;
                     $tipoarquivo = strtolower(pathinfo($arquivo,PATHINFO_EXTENSION));
                     $foto = "";
-                    $ativo = $_POST["confirmar"] == "on" ? true : false;
                                     
                     if(isset($_POST["submit"])) {
                         $check = getimagesize($_FILES["imagem"]["tmp_name"]);
@@ -116,7 +114,6 @@
                             $uploadOk = 0;
                         }
                     }
-
                     // Check file size
                     if ($_FILES["imagem"]["size"] > 6000000) {
                         $uploadOk = 0;
@@ -127,7 +124,6 @@
                         $uploadOk = 0;
                     }
                     
-                    // Check if $uploadOk is set to 0 by an error
                     if ($uploadOk == 0) {
                         // if everything is ok, try to upload file
                     } else {

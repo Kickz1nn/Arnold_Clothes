@@ -93,8 +93,8 @@
                                 $preco = $dados['precou'];
                                 echo "\t\t\t\t\t\t<div class=\"col-12 col-md-4 card\">\n";
                                 echo "\t\t\t\t\t\t\t<img src=\"IMG/$imagem\" class=\"img-fluid card-body\" width=\"400px\" height=\"300px\">\n";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text\"><b>R$ " . number_format($preco, 2, ",", ".") . "</b></p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text\">$descricao</p>";
+                                echo "\t\t\t\t\t\t\t<p class=\"card-text preco\"><b>R$ " . number_format($preco, 2, ",", ".") . "</b></p>";
+                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">$descricao</p>";
                                 echo "\t\t\t\t\t\t</div>\n";
                             }
 

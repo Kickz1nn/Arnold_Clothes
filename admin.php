@@ -59,12 +59,12 @@
                 <h2 class="title primary-color">Área Administrador</h2>
                 <p class="subtitle secondary-color">Adicione, exclua ou edite roupa<abrr title="Carlos, o Fassa I">s</abbr></p>
                 <div class="col-12" id="featured-images">                    
-                    <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary border" onclick="window.location='add.php'" value="Adicionar">Adicionar</button>
-                        <button class="btn btn-primary border" onclick="window.location='excluir.php'" value="Excluir">Excluir</button>
-                        <button class="btn btn-primary border" onclick="window.location='edt.php'" value="Editar">Editar</button>
-                        <button class="btn btn-primary border" onclick="window.location='con.php'" value="Consultar">Consultar</button>
-                    </div>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-secondary" onclick="window.location='add.php'">Adicionar</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location='edt.php'">Editar</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location='excluir.php'">Excluir</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location=''">Consultar</button>
+                </div>
                 </div>
             </div>
         </div>
