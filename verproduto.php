@@ -1,5 +1,21 @@
+<?php
+    include("conection.php");
+
+    $id = $_GET["id"];
+
+    $query = "SELECT * FROM roupas WHERE id = " . $id;
+    $resultado = mysqli_query($conexao, $query);
+
+    if(!$query) {
+        die("<p>Consulta Inválida: " . @mysqli_error($conexao) . "</p>");
+    }
+
+    $dados = mysqli_fetch_array($resultado);
+    $img = $dados["img"];
+?>
+
 <!DOCTYPE html>
-<html lang="ptbr">
+<html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +24,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+    
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -17,6 +33,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
+    
         <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon" />
         <title>Arnold Cloths</title>
     </head>
@@ -35,16 +52,17 @@
                 aria-controls="navbar-items"
                 aria-expanded="false"
                 aria-label="Toggle navigation"
-            >
+                >
                 <i class="bi bi-list"></i>
-            </button>
+            
+                </button>
                 <div class="collapse navbar-collapse" id="navbar-items">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link primary-color">Catálogo</a>
+                            <a href="index.php" class="nav-link active primary-color">Catálogo</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin.php" class="nav-link active primary-color">
+                            <a href="admin.php" class="nav-link primary-color">
                                 <i class="bi bi-person" id="login-icon"></i>
                                 <span id="login-txt">Admin</span>
                             </a>
@@ -53,56 +71,25 @@
                 </div>
             </div>
         </nav>
-        <?php
-            if(isset($_GET["mensagem"]) && !empty($_GET["mensagem"])) {
-                ?>
-                    <div class="alert alert-warning">
-                        <?php echo $_GET["mensagem"]; ?>
-                    </div>
+        <div class="col d-flex justify-content-center mt-5">
+            <div class="card mx-auto shadow shadow-5 m-3 p-3">
                 <?php
-            }
-
-        ?>
-
-        <table class="table table-hover mt-5">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Imagem</th>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Em Estoque</th>
-                    <th scope="col">Preço Unitário</th>
-                    <th scope="col">Tamanho</th>
-                    <th scope="col">Editar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    include("conection.php");
-
-                    $query = "SELECT id, descricao, quantidade, precou, tamanho, img from roupas";
-                    $dados = mysqli_query($conexao, $query);          
-
-                    if($dados) {
-                        while($linha = mysqli_fetch_assoc($dados)) {
-                            ?>
-                                <tr>
-                                    <th scope="row" ><?php echo $linha["id"]?></th>
-                                    <td><?php echo $linha["img"]?></td>
-                                    <td><?php echo $linha["descricao"]?></td>
-                                    <td><?php echo $linha["quantidade"]?></td>
-                                    <td><?php echo "R$ " . number_format($linha["precou"],2,",","."); ?></td>
-                                    <td><?php echo $linha["tamanho"]?></td>
-                                    <td>
-                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalLong" onclick="window.location='edt.php?idb=<?php echo $linha['id']; ?>'">Editar</button>
-                                    </td>
-                                </tr>                               
-                            <?php
-                        }
+                    if(empty($dados["img"])) {
+                        $imagem = "IMG/SemImagem.png";
+                    } else {
+                        $imagem = "IMG/" . $img;
                     }
                 ?>
-            </tbody>
-        </table>
+                <div class="card-body">
+                    <img class="card-img-top rounded" src="<?php echo $imagem; ?>" width="500px" height="400px">
+                    <h3 class="card-title mt-1">Roupa <?php echo $dados["id"]; ?></h3>
+                    <p class="card-text"><b>Descrição: </b><?php echo $dados["descricao"]; ?></p>
+                    <p class="card-text"><b>Valor: </b>R$<?php echo number_format($dados["precou"], 2, ",", "."); ?></p>
+                    <p class="card-text"><b>Em estoque: </b><?php echo $dados["quantidade"]; ?></p>
+                    <p class="card-text"><b>Tamanho: </b><?php echo $dados["tamanho"]; ?></p> 
+                    <button class="btn btn-secondary mt-3" onclick="window.location='index.php'">Voltar</button>                  
+                </div>
+            </div>
+        </div>
     </body>
-    <script src="JS/edt.js"></script>
 </html>
