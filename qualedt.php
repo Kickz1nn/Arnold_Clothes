@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="ptbr">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-        <link rel="shortcut icon" href="IMG/flavicon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon" />
         <title>Arnold Cloths</title>
     </head>
     <body>
@@ -53,16 +53,56 @@
                 </div>
             </div>
         </nav>
-        <div class="m-4">
-            <form method="post" action="edt.php" enctype="multipart/form-data">
-                <div class="form-row">
-                    <div class="form-group col-md-6" style="margin-bottom: 10px;">
-                        <label for="id">id</label>
-                        <input type="number" class="form-control" name="id" id="id" required="required">
+        <?php
+            if(isset($_GET["mensagem"]) && !empty($_GET["mensagem"])) {
+                ?>
+                    <div class="alert alert-warning">
+                        <?php echo $_GET["mensagem"]; ?>
                     </div>
-                <button type="submit" class="btn btn-secondary" id="enviar">ir alterar</button>
-            </form>
-        </div>
+                <?php
+            }
+
+        ?>
+
+        <table class="table table-hover mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Imagem</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Em Estoque</th>
+                    <th scope="col">Preço Unitário</th>
+                    <th scope="col">Tamanho</th>
+                    <th scope="col">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    include("conection.php");
+
+                    $query = "SELECT id, descricao, quantidade, precou, tamanho, img from roupas";
+                    $dados = mysqli_query($conexao, $query);          
+
+                    if($dados) {
+                        while($linha = mysqli_fetch_assoc($dados)) {
+                            ?>
+                                <tr>
+                                    <th scope="row"><?php echo $linha["id"]?></th>
+                                    <td><?php echo $linha["img"]?></td>
+                                    <td><?php echo $linha["descricao"]?></td>
+                                    <td><?php echo $linha["quantidade"]?></td>
+                                    <td><?php echo "R$ " . number_format($linha["precou"],2,",","."); ?></td>
+                                    <td><?php echo $linha["tamanho"]?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLong" onclick="window.location='edt.php?idb=<?php echo $linha['id']; ?>'">Editar</button>
+                                    </td>
+                                </tr>                               
+                            <?php
+                        }
+                    }
+                ?>
+            </tbody>
+        </table>
     </body>
-    <script src="JS/script.js"></script>
+    <script src="JS/edt.js"></script>
 </html>
