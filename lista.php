@@ -71,7 +71,7 @@
                     <th scope="col">Em Estoque</th>
                     <th scope="col">Preço Unitário</th>
                     <th scope="col">Tamanho</th>
-                    <th scope="col">Excluir</th>
+                    <th scope="col">Excluir/Editar</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,7 +92,8 @@
                                     <td><?php echo "R$ " . number_format($linha["precou"],2,",","."); ?></td>
                                     <td><?php echo $linha["tamanho"]?></td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="<?php echo $linha["id"]; ?>">Excluir</>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="<?php echo $linha["id"]; ?>">Excluir</button>
+                                        <button type="button" class="btn btn-warning" onclick="window.location='editar.php?id=<?php echo $linha['id']; ?>'">Editar</button>
                                     </td>
                                 </tr>                               
                             <?php

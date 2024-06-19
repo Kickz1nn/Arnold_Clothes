@@ -6,13 +6,13 @@
         $resultado = mysqli_query($conexao, $query);
 
         if($resultado) {
-            header("Location: ./del.php?mensagem=Excluído com sucesso");
+            header("Location: ./lista.php?mensagem=Excluído com sucesso");
             exit();
         }else {
-            header("Location: ./del.php?mensagem=Selecione um produto para excluir");
+            header("Location: ./lista.php?mensagem=Selecione um produto para excluir");
             exit();
         }
     } else {
-        header("Location: ./del.php?mensagem=Selecione um produto para excluir");
+        header("Location: ./lista.php?mensagem=Selecione um produto para excluir");
         exit();
     }
