@@ -23,10 +23,9 @@
 .secondary-color {
     color: #7a7a7a;
 }
-.div-flex {
-
-    margin-left: 0%;
-    
+.cardcons {
+    margin-top: 10000px;
+    justify-content: center;
     }
 
 /* NAVBAR */

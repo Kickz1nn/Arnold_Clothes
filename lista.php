@@ -71,7 +71,7 @@
                     <th scope="col">Em Estoque</th>
                     <th scope="col">Preço Unitário</th>
                     <th scope="col">Tamanho</th>
-                    <th scope="col">Excluir/Editar</th>
+                    <th scope="col">Excluir/Editar/Consultar</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,6 +94,7 @@
                                     <td>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="<?php echo $linha["id"]; ?>">Excluir</button>
                                         <button type="button" class="btn btn-warning" onclick="window.location='editar.php?id=<?php echo $linha['id']; ?>'">Editar</button>
+                                        <button type="button" class="btn btn-secondary" onclick="window.location='consultado.php?id=<?php echo $linha['id']; ?>'">Consultar</button>                                    
                                     </td>
                                 </tr>                               
                             <?php

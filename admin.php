@@ -63,7 +63,7 @@
                     <button type="button" class="btn btn-secondary" onclick="window.location='add.php'">Adicionar</button>
                     <button type="button" class="btn btn-secondary" onclick="window.location='editar.php'">Editar</button>
                     <button type="button" class="btn btn-secondary" onclick="window.location='excluir.php'">Excluir</button>
-                    <button type="button" class="btn btn-secondary" onclick="window.location='qualconsultar.php'">Consultar</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location='lista.php'">Consultar</button>
                 </div>
                 </div>
             </div>

@@ -59,47 +59,37 @@
                 <div class="col-12" id="featured-images">                    
                
                <?php
-                        include("conection.php");
-                        $id = $_POST['id'];
-                        $sql = "select * from roupas where id = $id";
-                        $query = @mysqli_query($conexao, $sql);
-                        $dados = mysqli_fetch_array($query);
+                include("conection.php");
+                $id = $_GET["id"];
+                $query = "select *  from roupas where id = " . $_GET["id"];
+                $resultado = mysqli_query($conexao, $query);
+                $dados = mysqli_fetch_array($resultado);
+                $descricao = $dados["descricao"];
+                $valor = $dados["precou"];
+                $quantidade = $dados["quantidade"];
+                $tamanho = $dados["tamanho"];
+                $imagens = $dados["img"];
                         if (!$query) {
                             die("<h4>Query Inválida: " . @mysqli_error($conexao) . "</h4>\n");
-                        }
-
-
-
-                     
-
-                        
-
-                            if (empty($dados['img'])) {
-                                $descricao = $dados['descricao'];
-                                $preco = $dados['precou'];
-                                $tamanho = $dados['tamanho'];
-                                $emestoque = $dados['quantidade'];
-                                echo "\t\t\t\t\t\t<div class=\"col-md-4  card div-flex\">\n";
+                        }   
+                            if (empty($imagens)) {
+                                echo "\t\t\t\t\t\t<div class=\"col-md-4 card div-flex\">\n";
                                 echo "\t\t\t\t\t\t\t<img src=\"IMG/SemImagem.png\" class=\"img-fluid\">\n";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text preco\"><b>R$ " . number_format($preco, 2, ",", ".") . "</b></p>";
+                                echo "\t\t\t\t\t\t\t<p class=\"card-text preco\"><b>R$ " . number_format($valor, 2, ",", ".") . "</b></p>";
                                 echo "\t\t\t\t\t\t\t<p class=\"card-text\">$descricao</p>";
                                 echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">tamanho: $tamanho</p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">em estoque: $emestoque</p>";
+                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">em estoque: $quantidade</p>";
                                 echo "\t\t\t\t\t\t</div>\n";
                             } 
                             
                             else {
-                                $imagem = $dados['img'];
-                                $descricao = $dados['descricao'];
-                                $preco = $dados['precou'];
-                                $tamanho = $dados['tamanho'];
-                                $emestoque = $dados['quantidade'];
-                                echo "\t\t\t\t\t\t<div class=\"col-12 col-md-4 card\">\n";
-                                echo "\t\t\t\t\t\t\t<img src=\"IMG/$imagem\" class=\"img-fluid card-body\" width=\"400px\" height=\"300px\">\n";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text preco\"><b>R$ " . number_format($preco, 2, ",", ".") . "</b></p>";
+                           
+                                echo "\t\t\t\t\t\t<div class=\" col-md-5 card cardcons\">\n";
+                                echo "\t\t\t\t\t\t\t<img src=\"IMG/$imagens\" class=\"img-fluid card-body\" width=\"400px\" height=\"300px\">\n";
+                                echo "\t\t\t\t\t\t\t<p class=\"card-text preco\"><b>R$ " . number_format($valor, 2, ",", ".") . "</b></p>";
                                 echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">$descricao</p>";
                                 echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">tamanho: $tamanho</p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">em estoque: $emestoque</p>";
+                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">em estoque: $quantidade</p>";
                                 echo "\t\t\t\t\t\t</div>\n";
                             }
 
@@ -115,6 +105,9 @@
                         function escrevefinal() {                            
                             echo "\t\t\t\t\t</div>\n";
                         }
+                        
+            
+            
                     ?>
                 </div>
             </div>
