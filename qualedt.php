@@ -73,7 +73,7 @@
                     <th scope="col">Em Estoque</th>
                     <th scope="col">Preço Unitário</th>
                     <th scope="col">Tamanho</th>
-                    <th scope="col">Excluir</th>
+                    <th scope="col">Editar</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,14 +87,14 @@
                         while($linha = mysqli_fetch_assoc($dados)) {
                             ?>
                                 <tr>
-                                    <th scope="row"><?php echo $linha["id"]?></th>
+                                    <th scope="row" ><?php echo $linha["id"]?></th>
                                     <td><?php echo $linha["img"]?></td>
                                     <td><?php echo $linha["descricao"]?></td>
                                     <td><?php echo $linha["quantidade"]?></td>
                                     <td><?php echo "R$ " . number_format($linha["precou"],2,",","."); ?></td>
                                     <td><?php echo $linha["tamanho"]?></td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLong" onclick="window.location='edt.php?idb=<?php echo $linha['id']; ?>'">Editar</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalLong" onclick="window.location='edt.php?idb=<?php echo $linha['id']; ?>'">Editar</button>
                                     </td>
                                 </tr>                               
                             <?php
