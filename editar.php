@@ -3,6 +3,7 @@
     include("conection.php");
 
     if(isset($_POST) && !empty($_POST)) {
+
         $id = $_POST["id"];
         $descricao = $_POST["descricao"];
         $valor = $_POST["preco"];
@@ -13,7 +14,7 @@
         $uploadOk = 1;
         $tipoarquivo = strtolower(pathinfo($arquivo,PATHINFO_EXTENSION));
         $foto = "";
-                        
+        
         if(isset($_POST["submit"])) {
             $check = getimagesize($_FILES["imagem"]["tmp_name"]);
             if($check !== false) {
@@ -27,6 +28,10 @@
         if ($_FILES["imagem"]["size"] > 6000000) {
             $uploadOk = 0;
         }
+
+        if (is_null($_FILES["imagem"])) {
+            $uploadOk = 0;
+        }
         
         // Allow certain file formats
         if($tipoarquivo != "jpg" && $tipoarquivo != "png" && $tipoarquivo != "jpeg") {
@@ -34,7 +39,13 @@
         }
         
         if ($uploadOk == 0) {
-            // if everything is ok, try to upload file
+            $query2 = "select * from roupas where id = " . $id;
+            $result = mysqli_query($conexao, $query2);
+            $dados2 = mysqli_fetch_array($result);
+
+            $imagema = $dados2["img"];
+
+            $foto = "$imagema";
         } else {
             if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $arquivo)) {
                 $foto = basename($arquivo);
@@ -50,7 +61,7 @@
     } else if(isset($_GET["id"]) && !empty($_GET)) {
         include("conection.php");
 
-        $query = "select *  from roupas where id = " . $_GET["id"];
+        $query = "select * from roupas where id = " . $_GET["id"];
         $resultado = mysqli_query($conexao, $query);
         
         $dados = mysqli_fetch_array($resultado);
@@ -151,19 +162,11 @@
                     </div>
                     <div class="form-group col-md-4 mt-3">
                         <label for="imagem">Imagem</label>
-                        <input type="file" class="form-control" accept="image/*" name="imagem" id="imagem" value="<?php echo $img;?>">
-                    </div>
-                </div>
-                <div class="form-group mb-3">
-                    <div class="form-check mt-3">
-                        <input class="form-check-input" type="checkbox" name="confirmar" id="confirmar">
-                        <label class="form-check-label" for="confirmar">
-                            Confirmo a edição
-                        </label>
+                        <input type="file" class="form-control mb-2" accept="image/*" name="imagem" id="imagem" value="<?php echo $img;?>">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-secondary" id="enviar">Editar</button>
             </form>
         </div>
     </body>
-    <script src="JS/script.js"></script>
+</html>

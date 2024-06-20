@@ -56,59 +56,45 @@
         <div class="container" id="featured-container">
             <div class="col-12">
                 <h2 class="title primary-color">Roupa selecionada</h2>
-                <div class="col-12" id="featured-images">                    
-               
-               <?php
-                include("conection.php");
-                $id = $_GET["id"];
-                $query = "select *  from roupas where id = " . $_GET["id"];
-                $resultado = mysqli_query($conexao, $query);
-                $dados = mysqli_fetch_array($resultado);
-                $descricao = $dados["descricao"];
-                $valor = $dados["precou"];
-                $quantidade = $dados["quantidade"];
-                $tamanho = $dados["tamanho"];
-                $imagens = $dados["img"];
-                        if (!$query) {
-                            die("<h4>Query Inválida: " . @mysqli_error($conexao) . "</h4>\n");
-                        }   
-                            if (empty($imagens)) {
-                                echo "\t\t\t\t\t\t<div class=\"col-md-4 card div-flex\">\n";
-                                echo "\t\t\t\t\t\t\t<img src=\"IMG/SemImagem.png\" class=\"img-fluid\">\n";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text preco\"><b>R$ " . number_format($valor, 2, ",", ".") . "</b></p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text\">$descricao</p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">tamanho: $tamanho</p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">em estoque: $quantidade</p>";
-                                echo "\t\t\t\t\t\t</div>\n";
-                            } 
+                <div class="col-12" id="featured-images">                      
+                    <div class="col d-flex justify-content-center mt-5">
+                        <div class="card mx-auto shadow shadow-5 m-3 p-3">
+                            <?php
+                                include("conection.php");
+
+                                $id = $_GET["id"];
                             
-                            else {
-                           
-                                echo "\t\t\t\t\t\t<div class=\" col-md-5 card cardcons\">\n";
-                                echo "\t\t\t\t\t\t\t<img src=\"IMG/$imagens\" class=\"img-fluid card-body\" width=\"400px\" height=\"300px\">\n";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text preco\"><b>R$ " . number_format($valor, 2, ",", ".") . "</b></p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">$descricao</p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">tamanho: $tamanho</p>";
-                                echo "\t\t\t\t\t\t\t<p class=\"card-text desc\">em estoque: $quantidade</p>";
-                                echo "\t\t\t\t\t\t</div>\n";
-                            }
+                                $query = "select *  from roupas where id = " . $_GET["id"];
+                                $resultado = mysqli_query($conexao, $query);
+                            
+                                $dados = mysqli_fetch_array($resultado);
+                                $descricao = $dados["descricao"];
+                                $valor = $dados["precou"];
+                                $quantidade = $dados["quantidade"];
+                                $tamanho = $dados["tamanho"];
+                                $img = $dados["img"];
+                            
+                                if (!$query) {
+                                    die("<h4>Query Inválida: " . @mysqli_error($conexao) . "</h4>\n");
+                                }
 
-                          
-                        
-
-                        escrevefinal();
-
-                        function escreverow() {
-                            echo "<div class=\"row g-4\">\n";
-                        }
-
-                        function escrevefinal() {                            
-                            echo "\t\t\t\t\t</div>\n";
-                        }
-                        
-            
-            
-                    ?>
+                                if(empty($dados["img"])) {
+                                    $imagem = "IMG/SemImagem.png";
+                                } else {
+                                    $imagem = "IMG/" . $img;
+                                }
+                            ?>
+                            <div class="card-body">
+                                <img class="card-img-top rounded" src="<?php echo $imagem; ?>" width="500px" height="400px">
+                                <h3 class="card-title mt-1">Roupa <?php echo $dados["id"]; ?></h3>
+                                <p class="card-text"><b>Descrição: </b><?php echo $dados["descricao"]; ?></p>
+                                <p class="card-text"><b>Valor: </b>R$<?php echo number_format($dados["precou"], 2, ",", "."); ?></p>
+                                <p class="card-text"><b>Em estoque: </b><?php echo $dados["quantidade"]; ?></p>
+                                <p class="card-text"><b>Tamanho: </b><?php echo $dados["tamanho"]; ?></p> 
+                                <button class="btn btn-secondary mt-3" onclick="window.location='index.php'">Voltar</button>                  
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

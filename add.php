@@ -79,14 +79,6 @@
                         <input type="file" class="form-control" accept="image/*" name="imagem" id="imagem">
                     </div>
                 </div>
-                <div class="form-group mb-3">
-                    <div class="form-check mt-3">
-                        <input class="form-check-input" type="checkbox" name="confirmar" id="confirmar">
-                        <label class="form-check-label" for="confirmar">
-                            Confirmo a adição
-                        </label>
-                    </div>
-                </div>
                 <button type="submit" class="btn btn-secondary" id="enviar">Adicionar</button>
             </form>
         </div>
